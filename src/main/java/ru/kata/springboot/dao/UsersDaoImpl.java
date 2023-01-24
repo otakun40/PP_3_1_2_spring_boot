@@ -1,11 +1,13 @@
 package ru.kata.springboot.dao;
 
-import javax.persistence.*;
-import org.springframework.stereotype.Repository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Component;
+
 import ru.kata.springboot.model.User;
 import java.util.List;
 
-@Repository
+@Component
 public class UsersDaoImpl implements UsersDao {
     @PersistenceContext
     private EntityManager em;
@@ -20,7 +22,7 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public List<User> getAll() {
-        return em.createQuery("from User", User.class).getResultList();
+        return em.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override

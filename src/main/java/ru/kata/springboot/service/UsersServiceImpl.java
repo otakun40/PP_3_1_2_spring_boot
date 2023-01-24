@@ -1,10 +1,11 @@
 package ru.kata.springboot.service;
 
+import jakarta.validation.Valid;
 import ru.kata.springboot.dao.UsersDao;
 import ru.kata.springboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -41,7 +42,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     @Transactional
-    public void update(User user) {
+    public void update(@Valid User user) {
         usersDao.update(user);
     }
 }

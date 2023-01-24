@@ -1,8 +1,10 @@
 package ru.kata.springboot.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.springboot.model.User;
 import ru.kata.springboot.service.UsersService;
@@ -20,13 +22,13 @@ public class UsersController {
     @GetMapping()
     public String showAll(Model model) {
         model.addAttribute("users", usersService.getAll());
-        return "/users/all";
+        return "users/all";
     }
 
     @GetMapping("/{id}")
     public String showUserById(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", usersService.getById(id));
-        return "/users/user";
+        return "users/user";
     }
 
     @GetMapping("/new")
@@ -35,9 +37,13 @@ public class UsersController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/users/create";
+        }
         usersService.save(user);
         return "redirect:/users";
+
     }
 
     @DeleteMapping("/{id}")
@@ -53,9 +59,15 @@ public class UsersController {
     }
 
     @PatchMapping("/{id}")
-    public String edit(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+    public String edit(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+                       @PathVariable("id") long id) {
+        if (bindingResult.hasErrors()) {
+            user.setId(id);
+            return "/users/edit";
+        }
         user.setId(id);
         usersService.update(user);
         return "redirect:/users";
+
     }
 }
