@@ -1,7 +1,7 @@
 package ru.kata.springboot.service;
 
 import jakarta.validation.Valid;
-import ru.kata.springboot.dao.UsersDao;
+import ru.kata.springboot.repository.UsersRepository;
 import ru.kata.springboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,38 +11,35 @@ import java.util.List;
 @Service
 @Transactional
 public class UsersServiceImpl implements UsersService {
-    private final UsersDao usersDao;
+    private final UsersRepository usersRepository;
 
     @Autowired
-    public UsersServiceImpl(UsersDao usersDao) {
-        this.usersDao = usersDao;
+    public UsersServiceImpl(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
     }
 
     @Override
     public User getById(long id) {
-        return usersDao.getById(id);
+        return usersRepository.getById(id);
     }
 
     @Override
     public List<User> getAll() {
-        return usersDao.getAll();
+        return usersRepository.getAll();
     }
 
     @Override
-    @Transactional
     public void save(User user) {
-        usersDao.save(user);
+        usersRepository.save(user);
     }
 
     @Override
-    @Transactional
     public void delete(long id) {
-        usersDao.delete(id);
+        usersRepository.delete(id);
     }
 
     @Override
-    @Transactional
     public void update(@Valid User user) {
-        usersDao.update(user);
+        usersRepository.update(user);
     }
 }

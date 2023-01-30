@@ -1,18 +1,18 @@
-package ru.kata.springboot.dao;
+package ru.kata.springboot.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Component;
 
+import org.springframework.stereotype.Repository;
 import ru.kata.springboot.model.User;
 import java.util.List;
 
-@Component
-public class UsersDaoImpl implements UsersDao {
+@Repository
+public class UsersRepositoryImpl implements UsersRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public UsersDaoImpl() {
+    public UsersRepositoryImpl() {
     }
 
     @Override
