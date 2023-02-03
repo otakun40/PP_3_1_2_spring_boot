@@ -3,7 +3,6 @@ package ru.kata.springboot.service;
 import jakarta.validation.Valid;
 import ru.kata.springboot.repository.UsersRepository;
 import ru.kata.springboot.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
 
-    @Autowired
     public UsersServiceImpl(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }

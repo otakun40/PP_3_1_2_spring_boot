@@ -32,8 +32,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public void delete(long id) {
-        User user = em.find(User.class, id);
-        em.remove(user);
+        em.createQuery("delete from User u where u.id = :id").setParameter("id", id).executeUpdate();
     }
 
     @Override
